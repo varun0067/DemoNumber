@@ -1,0 +1,26 @@
+.register{
+    padding: 30px 40px 30px 40px;
+    background-color: rgb(72, 245, 248);
+    border-radius: 5px;
+}
+label{
+    margin-top: 8px;
+}
+
+h1{
+    color: white;
+}
+.btn{
+    border-radius: 5rem;
+    letter-spacing: .1rem;
+    padding: 1rem;
+    transition: all 0.2s;
+}
+input{
+    margin-top: 5px;
+    height: auto;
+    border-radius: 2rem;
+}
+h2{
+    margin-bottom: 30px;
+}
