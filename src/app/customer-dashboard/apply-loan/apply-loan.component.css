@@ -1,43 +1,24 @@
-.form-signin{
-    margin-top: 150px;
+.layout{
     margin-left: 25px;
     margin-right: 25px;
 }
-th,td{
-    color:white;
-}
-h1{
-    color: white;
-}
-.login{
+.apply-loan{
+    margin-top: 100px;
+    margin-bottom: 50px;
     background-color: rgb(177, 250, 250); 
     padding: 50px; 
     border-radius: 1rem;
     box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 input{
-    margin-top: 2.5px;
-    margin-bottom: 5px;
+    margin-top: 5px;
     height: auto;
     border-radius: 2rem;
 }
 .btn{
+    margin-top: 30px;
     border-radius: 5rem;
     letter-spacing: .1rem;
     padding: 1rem;
     transition: all 0.2s;
-}
-.h3{
-    color: black;
-    margin-bottom: 30px;;
-}
-h4{
-    color: white;
-}
-p,a{
-    cursor: pointer;
-}
-i{
-    font-size: 20px;
-    cursor: pointer;
 }

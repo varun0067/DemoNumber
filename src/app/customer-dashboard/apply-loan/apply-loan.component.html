@@ -1,0 +1,240 @@
+<app-nav-bar-login></app-nav-bar-login>
+<body class="text-center">
+   <div class="layout row">
+        <div class="apply-loan col-md-10 col-md-offset-1">
+            <div class="row">
+                    <div class="col-md-12  alert alert-success" *ngIf="applyLoanSuccess"> Loan application submitted successfully!!</div>
+            </div>
+            <div class="row">
+                    <div class="col-md-12  alert alert-danger" *ngIf="applyLoanFail"> Loan application rejected due to low credit score.</div>
+            </div>
+            <div class="row">
+                <h2>Apply Loan</h2>
+            </div>
+
+            <div class="col">
+                <label class="pull-left" for="loanType">Loan Type</label>
+                <select class="col form-control" [(ngModel)]="loanTypeSelected"  name="loanType"
+                    id="loanType">
+                    <option value="" hidden selected>Select Loan Type</option>
+                    <option value="personal">Personal</option>
+                    <option value="educational">Educational</option>
+                </select>
+                <br>
+            </div>
+
+
+            <form [formGroup]="applyPersonalLoanForm" *ngIf="loanTypeSelected == 'personal' " id="applyPersonalLoanForm" (ngSubmit)="applyPersonalLoan()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyLoanForm.controls.loanType.touched && applyLoanForm.controls.loanType.errors?.required">Please Select loan Type.</div>
+                            <label class="pull-left" for="loanType">Loan Type</label>
+                            <select class="col form-control" [(ngModel)]="loanTypeSelected"  formControlName="loanType"
+                                id="loanType">
+                                <option value="personal">Personal</option>
+                                <option value="educational">Educational</option>
+                            </select>
+                        </div> -->
+                        
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.amount.touched && applyPersonalLoanForm.controls.amount.errors?.required">Loan Amount is required.</div>
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.amount.touched && applyPersonalLoanForm.controls.amount.invalid">Loan Amount should be graterthan 50000.</div>
+                            <label class="pull-left" for="loanAmount">Loan Amount</label>
+                            <input type="number" class="col form-control " formControlName="amount"
+                                id="amount">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.loanApplyDate.touched && applyPersonalLoanForm.controls.loanApplyDate.errors?.required">Loan Apply date is required.</div>
+                            <label class="pull-left " for="loanApplyDate">Loan Apply
+                                Date</label>
+                            <input type="date" class="col form-control " max="{{today | date:'yyyy-MM-dd'}}" formControlName="loanApplyDate" id="loanApplyDate">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.loanIssueDate.touched && applyPersonalLoanForm.controls.loanIssueDate.errors?.required">Loan Issue date is required.</div>
+                            <label class="pull-left " for="loanIssueDate">Loan Issue
+                                Date</label>
+                            <input type="date" class="col form-control"  formControlName="loanIssueDate"
+                                id="loanIssueDate" min="{{today | date:'yyyy-MM-dd'}}">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.durationOfLoan.touched && applyPersonalLoanForm.controls.durationOfLoan.errors?.required">Duration of loan is required.</div>
+                            <label class="pull-left " for="durationOfLoan">Duration Of Loan (in years)</label>
+                            <select class="col form-control " formControlName="durationOfLoan" id="durationOfLoan">
+                                <option value=5>05</option>
+                                <option value=10>10</option>
+                                <option value=15>15</option>
+                                <option value=20>20</option>
+                            </select>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+
+                        <div class="col">
+                            
+                            <label class="pull-left " for="rateOfInterest">Rate Of Interest</label>
+                            <input type="text" class="col form-control" [ngModel]="8" formControlName="rateOfInterest"
+                                id="rateOfInterest" disabled>
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.annualIncome.touched && applyPersonalLoanForm.controls.annualIncome.errors?.required">Annual Income is required.</div>
+                            <label class="pull-left" for="annualIncome">Annual Income</label>
+                            <input type="number" class="col form-control"  formControlName="annualIncome" id="annualIncome">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.companyName.touched && applyPersonalLoanForm.controls.companyName.errors?.required">Company Name is required.</div>
+                            <label class="pull-left" for="companyName">Company Name</label>
+                            <input type="text" class="col form-control" formControlName="companyName" id="companyName">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.designation.touched && applyPersonalLoanForm.controls.designation.errors?.required">Designation is required.</div>
+                            <label class="pull-left" for="designation">Designation</label>
+                            <input type="text" class="col form-control"  formControlName="designation" id="designation">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.totalExperience.touched && applyPersonalLoanForm.controls.totalExperience.errors?.required">Total Experience is required.</div>
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.totalExperience.touched && applyPersonalLoanForm.controls.totalExperience.invalid">Total Experience should be less than or equal to 40.</div>
+                            <label class="pull-left" for="totalExperience">Total Experience</label>
+                            <input type="number" class="col form-control" formControlName="totalExperience" id="totalExperience">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.experienceWithCurrentCompany.touched && applyPersonalLoanForm.controls.experienceWithCurrentCompany.invalid">Experience in current company should be less than or equal to Total Experience.</div>
+                            <div class="alert alert-danger" *ngIf="applyPersonalLoanForm.controls.experienceWithCurrentCompany.touched && applyPersonalLoanForm.controls.experienceWithCurrentCompany.errors?.required">Experience with current company is required.</div>
+                            <label class="pull-left" for="experienceWithCurrentCompany">Experience with Current Company</label>
+                            <input type="number" class="col form-control" formControlName="experienceWithCurrentCompany"
+                                [max]="applyPersonalLoanForm.controls.totalExperience.value" id="experienceWithCurrentCompany">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center col">
+                            <button type="submit" [disabled]="applyPersonalLoanForm.invalid" class="btn btn-primary btn-lg">Apply</button>
+                        </div>
+                    </div> 
+                </div>
+            </form>
+
+            <form [formGroup]="applyEducationLoanForm" *ngIf="loanTypeSelected == 'educational' " id="applyEducationLoanForm" (ngSubmit)="applyEducationLoan()">
+                <div class="row">
+                    <div class="col-md-6">
+                    <!-- <div class="col">
+                        <div class="alert alert-danger" *ngIf="applyLoanForm.controls.loanType.touched && applyLoanForm.controls.loanType.errors?.required">Please Select loan Type.</div>
+                        <label class="pull-left" for="loanType">Loan Type</label>
+                        <select class="col form-control" [(ngModel)]="loanTypeSelected"  formControlName="loanType"
+                            id="loanType">
+                            <option value="personal">Personal</option>
+                            <option value="educational">Educational</option>
+                        </select>
+                    </div> -->
+                    
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.amount.touched && applyEducationLoanForm.controls.amount.errors?.required">Loan Amount is required.</div>
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.amount.touched && applyEducationLoanForm.controls.amount.invalid">Loan Amount should be graterthan 50000.</div>
+                            <label class="pull-left" for="loanAmount">Loan Amount</label>
+                            <input type="number" class="col form-control " formControlName="amount"
+                                id="amount">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.loanApplyDate.touched && applyEducationLoanForm.controls.loanApplyDate.errors?.required">Loan Apply date is required.</div>
+                            <label class="pull-left " for="loanApplyDate">Loan Apply
+                                Date</label>
+                            <input type="date" class="col form-control " max="{{today | date:'yyyy-MM-dd'}}" formControlName="loanApplyDate" id="loanApplyDate">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.loanIssueDate.touched && applyEducationLoanForm.controls.loanIssueDate.errors?.required">Loan Issue date is required.</div>
+                            <label class="pull-left " for="loanIssueDate">Loan Issue
+                                Date</label>
+                            <input type="date" class="col form-control"  formControlName="loanIssueDate"
+                                id="loanIssueDate" min="{{today | date:'yyyy-MM-dd'}}">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.durationOfLoan.touched && applyEducationLoanForm.controls.durationOfLoan.errors?.required">Duration of loan is required.</div>
+                            <label class="pull-left " for="durationOfLoan">Duration Of Loan (in years)</label>
+                            <select class="col form-control " formControlName="durationOfLoan" id="durationOfLoan">
+                                <option value=5>05</option>
+                                <option value=10>10</option>
+                                <option value=15>15</option>
+                                <option value=20>20</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col">
+                            <label class="pull-left " for="rateOfInterest">Rate Of Interest</label>
+                            <input type="text" class="col form-control" [ngModel]="10" formControlName="rateOfInterest"
+                                id="rateOfInterest" disabled>
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.courseFee.touched && applyEducationLoanForm.controls.courseFee.errors?.required">Course Fee is required.</div>
+                            <label class="pull-left" for="courseFee">Course Fee</label>
+                            <input type="number" class="col form-control"  formControlName="courseFee" id="courseFee">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.course.touched && applyEducationLoanForm.controls.course.errors?.required">Course name is required.</div>
+                            <label class="pull-left" for="course">Course</label>
+                            <input type="text" class="col form-control" formControlName="course" id="course">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.fatherName.touched && applyEducationLoanForm.controls.fatherName.errors?.required">Father name is required.</div>
+                            <label class="pull-left" for="fatherName">Father Name</label>
+                            <input type="text" class="col form-control" formControlName="fatherName" id="fatherName">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.fatherOccupation.touched && applyEducationLoanForm.controls.fatherOccupation.errors?.required">Father Occupation is required.</div>
+                            <label class="pull-left" for="fatherOccupation">Father Occupation</label>
+                            <input type="text" class="col form-control"  formControlName="fatherOccupation" id="fatherOccupation">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.fatherTotalExperience.touched && applyEducationLoanForm.controls.fatherTotalExperience.errors?.required">Father total experience is required.</div>
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.fatherTotalExperience.touched && applyEducationLoanForm.controls.fatherTotalExperience.invalid">Father total experience should be less than or equal to 40.</div>
+                            <label class="pull-left" for="fatherTotalExperience">Father experience</label>
+                            <input type="number" class="col form-control"  formControlName="fatherTotalExperience" id="fatherTotalExperience">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.fatherExperienceInCurrentCompany.touched && applyEducationLoanForm.controls.fatherExperienceInCurrentCompany.errors?.required">Father experience in current company is required.</div>
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.fatherExperienceInCurrentCompany.touched && applyEducationLoanForm.controls.fatherExperienceInCurrentCompany.invalid">Father experience in current company should be less than or equal to father total Experience.</div>
+                            <label class="pull-left" for="fatherExperienceInCurrentCompany">Father experience with current company</label>
+                            <input type="number" class="col form-control"  formControlName="fatherExperienceInCurrentCompany" id="fatherExperienceInCurrentCompany" 
+                            [max]="applyEducationLoanForm.controls.fatherTotalExperience.value">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.rationCardNumber.touched && applyEducationLoanForm.controls.rationCardNumber.errors?.required">Ration Card number is required.</div>
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.rationCardNumber.touched && applyEducationLoanForm.controls.rationCardNumber.invalid">Ration Card number should contain 6 digits.</div>
+                            <label class="pull-left" for="rationCardNumber">Ration Card Number</label>
+                            <input type="number" class="col form-control"  formControlName="rationCardNumber" id="rationCardNumber">
+                        </div>
+                        <br>
+                        <div class="col">
+                            <div class="alert alert-danger" *ngIf="applyEducationLoanForm.controls.annualIncome.touched && applyEducationLoanForm.controls.annualIncome.errors?.required">Annual Income is required.</div>
+                            <label class="pull-left" for="annualIncome">Annual Income</label>
+                            <input type="number" class="col form-control" formControlName="annualIncome" id="annualIncome">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center col">
+                            <button type="submit" [disabled]="applyEducationLoanForm.invalid" class="btn btn-primary btn-lg">Apply</button>
+                        </div>
+                    </div> 
+                </div>
+            </form> 
+        </div>
+    </div>
+</body>

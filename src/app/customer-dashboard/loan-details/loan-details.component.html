@@ -1,0 +1,64 @@
+<app-nav-bar-login></app-nav-bar-login>
+<div class="container">
+<div class="education-loan row" *ngIf="eduNoData">
+    <div class="col-md-10 col-md-offset-1">
+        <h3>No Education loan details to show.</h3>
+    </div>
+</div>
+<div class="education-loan row" *ngFor="let edu of eduLoan">
+    <h3><u>Education Loan Details</u></h3>
+    <br>
+    <div class="col-md-4 col-md-offset-1">
+            <label>Amount :</label> {{edu.amount}} <br>
+            <label>Apply Date :</label> {{edu.loanApplyDate}} <br>
+            <label>Issue Date :</label> {{edu.loanIssueDate}} <br>
+            <label>Rate OF Interest :</label> {{edu.rateOfInterest}} <br>
+            <label>Duration of Loan :</label>{{edu.durationOfLoan}} <br>
+            <label>Course Fee :</label> {{edu.courseFee}} <br>
+            <label>Course :</label> {{edu.course}} <br>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+            <label>Father Name :</label> {{edu.fatherName}}<br> 
+            <label>Father Occupation :</label> {{edu.fatherOcuupation}}<br>
+            <label>Father Total Experience :</label> {{edu.fatherTotalExperience}}<br>
+            <label>Father Experience in current Company :</label> {{edu.fatherExperienceInCurrentCompany}}<br>
+            <label>Ration Card Number :</label> {{edu.rationCardNumber}}<br>
+            <label>Annual Income :</label> {{edu.annualIncome}}<br>
+        </div>
+    </div>
+    <div class="personal-loan row" *ngIf="perNoData">
+            <div class="col-md-10 col-md-offset-1">
+                <h3>No Personal loan details to show.</h3>
+            </div>
+        </div>
+    <div class="personal-loan row" *ngFor="let per of perLoan">
+        <h3><u>Personal Loan Details</u></h3>
+        <br>
+        <div class="col-md-4 col-md-offset-1">
+            <label>Amount :</label> {{per.amount}}<br>
+            <label>Apply Date :</label> {{per.loanApplyDate}}<br>
+            <label>Issue Date :</label> {{per.loanIssueDate}}<br>
+            <label>Rate OF Interest :</label> {{per.rateOfInterest}}<br>
+            <label>Duration of Loan :</label> {{per.durationOfLoan}}<br>       
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+            <label>Annual Income :</label> {{per.annualIncome}}<br>
+            <label>Company Name :</label> {{per.companyName}}<br>
+            <label>Designation :</label> {{per.designation}}<br>
+            <label>Total Experience :</label> {{per.totalExperience}}<br>
+            <label>Experience in current Company :</label> {{per.experienceInCurrentCompany}}<br>      
+        </div>
+    </div> 
+</div> 
+        
+        
+         
+         
+        
+        
+         
+         
+         
+         
+        
+        

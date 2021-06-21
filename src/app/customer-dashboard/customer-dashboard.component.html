@@ -1,12 +1,55 @@
-<body class="text-center">
-        <h1>Bank Management System</h1>
-        <br>
-        <br>
-        <main class="form-signin">
-                <button type="button" class="w-100 btn btn-lg btn-dark" routerLink="/apply-loan">Apply For
-                    Loan</button>
-                <br><br><br><br>
-                <button type="button" class="w-100 btn btn-lg btn-dark" routerLink="/update-account">Update
-                    Account Details</button>
-        </main>
+<app-nav-bar-login></app-nav-bar-login>
+<body>
+    <div class="layout">
+        <div class="user-details container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Hi,{{acc?.name}}</h3>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Customer Id : </label> {{acc?.customerId}}
+                </div>
+                <div class="col-md-6">
+                    <label>Account Number : </label> {{acc?.accountNumber}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Address : </label> {{acc?.address}}
+                </div>
+                <div class="col-md-6">
+                    <label *ngIf="acc?.identificationType=='PAN'">PAN Number : </label>
+                    <label *ngIf="acc?.identificationType=='Aadhar'">Aadhar Number : </label> {{acc?.identificationDocumentNumber}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Email-Id : </label> {{acc?.email}}
+                </div>
+                <div class="col-md-6">
+                    <label>Mobile Number : </label> {{acc?.contactNumber}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <div class="text-center">
+                <div class="row">
+                    <div class="but col-md-4">
+                        <button type="button" class="w-100 btn btn-lg btn-dark" routerLink="/apply-loan">Apply For Loan</button>
+                    </div>
+                    <div class=" but col-md-4">
+                        <button type="button" class="w-100 btn btn-lg btn-dark" routerLink="/update-account">Update Account Details</button>
+                    </div>
+                    <div class=" but col-md-4">
+                        <button type="button" class="w-100 btn btn-lg btn-dark" routerLink="/loan-details">View Loan Details</button>
+                    </div>      
+                </div>
+            </div>
+        </div>
+    </div>
 </body>

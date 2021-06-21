@@ -27,4 +27,5 @@ export class account {
         public referenceAccountHolderAccountNumber: string,
         public referenceAccountHolderAddress: string
     ) { }
+
 }

@@ -1,0 +1,306 @@
+<app-nav-bar></app-nav-bar>
+<body class="text-center">
+        <form [formGroup]="registrationForm" id="registrationForm" (ngSubmit)="register()">
+        <div class="layout row">
+            <div class="register col-md-10 col-md-offset-1">
+                <h2>Register</h2>
+                <div class="col-md-12  alert alert-success" *ngIf="registrationSuccess">Registration Successful. your Customer id is {{CustomerId}}</div>
+                <div class="form-group row">
+
+                    <div class="col-md-4 ">
+                        <div class="col-md-12  alert alert-danger" *ngIf="registrationForm.controls.name.touched&&registrationForm.controls.name.errors?.required">Name is required.</div>
+                        <div class="col-md-12  alert alert-danger" *ngIf="registrationForm.controls.name.touched&&registrationForm.controls.name.invalid">Name cannot contain special case or numbers.</div>
+                        <label class="pull-left" for="name">Name</label>
+                        <input type="text" class="form-control"  ngModel formControlName="name" id="name" placeholder=" Alphabets and Space Only" >
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="col-md-12  alert alert-danger" *ngIf="registrationForm.controls.email.touched&&registrationForm.controls.email.errors?.required">E-mail is required.</div>
+                        <div class="col-md-12  alert alert-danger" *ngIf="registrationForm.controls.email.touched&&registrationForm.controls.email.invalid">Email should contain (@ and .).Example abc@xyz.com</div>
+                        <label class="pull-left" for="email">Email Address</label>
+                        <input type="email" class="form-control"  ngModel formControlName="email" id="email" placeholder="Email" >
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="col-md-12  alert alert-danger" *ngIf="registrationForm.controls.contactNumber.touched&&registrationForm.controls.contactNumber.errors?.required">Contact Number is required.</div>
+                        <div class="col-md-12  alert alert-danger" *ngIf="registrationForm.controls.contactNumber.touched&&registrationForm.controls.contactNumber.invalid">Mobile number should be 10 digits.And starts with (6 or 7 or 8 or 9)</div>
+                        <label class="pull-left" for="contactNumber">Contact Number</label>
+                        <input type="number" class="form-control"  ngModel formControlName="contactNumber" id="contactNumber" placeholder="Mobile Number">
+                    </div>
+
+                </div>
+    
+                <div class="form-group row">
+                    <div class=" col-md-6">
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.username.touched&&registrationForm.controls.username.errors?.required">Username Number is required.</div>
+                        <div class="alert alert-danger" *ngIf="invalidUsername">Username already taken.Please try with other Username.</div>
+                        <label class="pull-left" for="username">Username</label>
+                        <input type="text" class="form-control"  ngModel formControlName="username" id="username" placeholder="Enter Username" (input)="CheckUserName($event.target.value)">
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.password.touched&&registrationForm.controls.password.errors?.required">Password Number is required.</div>
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.password.touched&&registrationForm.controls.password.invalid">Password should contain atleast 6 charecters.</div>
+                        <label class="pull-left" for="password">Password</label>
+                        <input type="password" class="form-control"  ngModel formControlName="password" id="password" placeholder="password">
+                        </div>
+                    
+                </div>
+
+                <div class="form-group row">
+                
+                    <div class="col-md-3">
+                        
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.gender.touched&&registrationForm.controls.gender.errors?.required">Please select the gender.</div>
+                    
+                        <label class="pull-left" for="gender">Gender</label>
+                        <select class="form-control"  ngModel formControlName="gender" id="gender">
+                            <option hidden value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">  
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.dateOfBirth.touched&&registrationForm.controls.dateOfBirth.errors?.required">Date of birth is required.</div>     
+                        <label class="pull-left" for="dateOfBirth">Date Of Birth</label>
+                        <input type="date" class="form-control"  ngModel formControlName="dateOfBirth"
+                             min="{{mindate | date:'yyyy-MM-dd'}}" max="{{maxdate | date:'yyyy-MM-dd'}}"
+                            id="dateOfBirth" (change)="CitizenStatus($event.target.value)">
+                    </div>
+
+                    <div class="col-md-3">       
+                            <label class="pull-left" for="citizenStatus">Citizenship status</label>
+                            <input type="text" class="form-control"  ngModel formControlName="citizenStatus"
+                                 id="citizenStatus" [value]="citizenStatus" disabled>
+                        </div>
+    
+                    <div class="col-md-3">    
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.maritalStatus.touched&&registrationForm.controls.maritalStatus.errors?.required">Please select the gender.</div>
+                        <label class="pull-left" for="maritalStatus">Marital Status</label>
+                        <select class="form-control"  ngModel formControlName="maritalStatus"
+                            id="maritalStatus">
+                            <option hidden value="" >Select Marital Status</option>
+                            <option value="married">Married</option>
+                            <option value="unmarried">Unmarried</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    
+                        <div class="col-md-4">
+                            <div class="alert alert-danger" *ngIf="registrationForm.controls.guardianType.touched&&registrationForm.controls.guardianType.errors?.required">Please select the Guardian type.</div>
+                            <label class="pull-left" for="guardianType">Guardian Type</label>
+                            <select class="form-control"  ngModel formControlName="guardianType"
+                                id="guardianType">
+                                <option hidden value=""  selected>Select Guardian Type</option>
+                                <option value="father">Father</option>
+                                <option value="husband">Husband</option>
+                            </select>
+
+                            <br>
+                            <div class="alert alert-danger" *ngIf="registrationForm.controls.guardianName.touched&&registrationForm.controls.guardianName.errors?.required">Guardian name is required.</div>
+                            <label class="pull-left" for="guardianName">Guardian Name</label>
+                            <input type="text" class="form-control"  ngModel formControlName="guardianName"
+                                id="guardianName" placeholder="Guardian Name">
+                        </div>
+    
+                    <div class="col-md-8">
+                            <div class="alert alert-danger" *ngIf="registrationForm.controls.address.touched&&registrationForm.controls.address.errors?.required">Address is required.</div>
+                        <label class="pull-left" for="address">Address</label>
+                        <textarea rows="5" class="form-control"  ngModel formControlName="address"
+                            id="address" placeholder="Your Address..."></textarea>
+                    </div>
+                    
+                </div>
+    
+    
+                <div class="form-group row">
+                    
+                    <div class="col-md-4">
+                            <div class="alert alert-danger" *ngIf="registrationForm.controls.citizenship.touched&&registrationForm.controls.citizenship.errors?.required">Please select the Citizenship.</div>
+                        <label class="pull-left" for="citizenship">Citizenship</label>
+                        <select class="form-control"  ngModel formControlName="citizenship"
+                            id="citizenship">
+                            <option hidden value=""  selected>Select Citizenship</option>
+                            <option value="indian">Indian</option>
+                            <option value="foreigner">Foreigner</option>
+                        </select>
+                    </div>
+    
+                    
+                    <div class="col-md-4">
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.country.touched&&registrationForm.controls.country.errors?.required">Please select the Country.</div>
+                        <label class="pull-left" for="country">Country</label>
+                        <select class="form-control"  ngModel formControlName="country" id="country">
+                            <option hidden value=""  selected>Select Country</option>
+                            <option value="india">India</option>
+                        </select>
+                    </div>
+    
+
+                    <div class="col-md-4">
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.state.touched&&registrationForm.controls.state.errors?.required">Please select the State</div>
+                        <label class="pull-left" for="state">State</label>
+                        <select class="form-control"  ngModel formControlName="state"
+                            id="state">
+                                <option hidden value=""  selected>Select State</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                <option value="Daman and Diu">Daman and Diu</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Puducherry">Puducherry</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="col-md-6 col-md-offset-6">
+                    
+                    
+                </div>
+                <div class="form-group row">
+                    
+                    <div class="col-md-6">      
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.accountType.touched&&registrationForm.controls.accountType.errors?.required">Please select Account type.</div>
+                        <label class="pull-left" for="accountType">Account Type</label>
+                        <select class="form-control"  ngModel formControlName="accountType" (change)="AccouuntType($event.target.value)"
+                            id="accountType">
+                            <option hidden value=""  selected>Select Acount Type</option>
+                            <option value="saving">Saving</option>
+                            <option value="salary">Salary</option>
+                        </select>
+                        <br>
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.branchName.touched&&registrationForm.controls.branchName.errors?.required">BranchName is required.</div>
+                        <label class="pull-left" for="branchName">Branch Name</label>
+                        <select class="form-control"  ngModel formControlName="branchName"
+                            id="branchName">
+                            <option hidden value=""  selected>Select Branch Name</option>
+                            <option value="mysore">Mysore</option>
+                            <option value="banglore">Banglore</option>
+                        </select>
+                    </div>
+    
+                    
+    
+                    
+                    <div class="col-md-6">
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.identificationType.touched&&registrationForm.controls.identificationType.errors?.required">Please select the Identification type.</div>
+                        <label class="pull-left" for="identificationType">Identification Type</label>
+                        <select class="form-control"  ngModel formControlName="identificationType"
+                            id="identificationType" (change)="dropIdenNumber($event.target.value)">
+                            <option hidden value=""  selected>Select Indentification Type</option>
+                            <option value="PAN" selected>PAN</option>
+                            <option value="Aadhar">Aadhar</option>
+                        </select>
+
+                        <br>
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.identificationDocumentNumber.touched&&registrationForm.controls.identificationDocumentNumber.errors?.required">Identification Document Number is required.</div>
+                        
+                        <div class="alert alert-danger" *ngIf="invalidPAN&&idenTypePAN">PAN number cam only Contain Capital Alphabets and Numbers.And Should be of length 12.</div>
+                        <label class="pull-left" for="identificationDocumentNumber" *ngIf="idenTypePAN">PAN Card
+                            Number</label>
+                        <input type="text" class="form-control"  ngModel *ngIf="idenTypePAN"
+                            formControlName="identificationDocumentNumber" id="identificationDocumentNumber"
+                            placeholder="12 Character Alphanumeric Only" (input)="CheckPAN($event.target.value)">
+                        
+                        <div class="alert alert-danger" *ngIf="invalidAadhar&&idenTypeAadhar">Aadhar number should be 12 digits.</div>
+                        <label class="pull-left" for="identificationDocumentNumber" *ngIf="idenTypeAadhar">Aadhar Number</label>
+                        <input type="text" class="form-control"  ngModel *ngIf="idenTypeAadhar"
+                            formControlName="identificationDocumentNumber" id="identificationDocumentNumber"
+                            placeholder="12 Numbers Only" (input)="CheckAadhar($event.target.value)">
+                    </div>
+
+                    
+                </div>
+    
+                <div class="form-group row">
+                    
+                    <div class="col-md-4">
+                        
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.referenceAccountHolderName.touched&&registrationForm.controls.referenceAccountHolderName.errors?.required">Nominee Name is required.</div>
+                        <label class="pull-left" for="referenceAccountHolderName">Nominee
+                            Name</label>
+                        <input type="text" class="form-control"  ngModel
+                            formControlName="referenceAccountHolderName" id="referenceAccountHolderName" placeholder="Nominee Name">
+                        
+                        <br>
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.referenceAccountHolderAccountNumber.touched&&registrationForm.controls.referenceAccountHolderAccountNumber.errors?.required">Nominee Account Number is required.</div>
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.referenceAccountHolderAccountNumber.touched&&registrationForm.controls.referenceAccountHolderAccountNumber.invalid">Account number should be 16 digits.</div>
+                        <label class="pull-left"
+                        for="referenceAccountHolderAccountNumber">Nominee Account Number</label>
+                        <input type="number" class="form-control"
+                             ngModel formControlName="referenceAccountHolderAccountNumber"
+                        id="referenceAccountHolderAccountNumber" placeholder="Nominee Account Number" >
+                        
+
+                        <label class="pull-left" for="registrationDate">Registration
+                                Date</label>
+                        <input type="date" class="form-control"  
+                            formControlName="registrationDate"  id="registrationDate">
+                    </div>
+    
+    
+                     
+                    <div class="col-md-8">
+                            <div class="alert alert-danger" *ngIf="registrationForm.controls.referenceAccountHolderAddress.touched&&registrationForm.controls.referenceAccountHolderAddress.errors?.required">Nominee address is required.</div>
+                        <label class="pull-left" for="referenceAccountHolderAddress">Nominee
+                            Address</label>
+                        <textarea rows="5" class="form-control"  ngModel
+                            formControlName="referenceAccountHolderAddress" id="referenceAccountHolderAddress" placeholder="Nominee Address...."></textarea>
+                            
+                        <br>
+
+                        <div class="alert alert-danger" *ngIf="registrationForm.controls.initialDepositAmount.touched&&registrationForm.controls.initialDepositAmount.errors?.required">Initial deposit is required.</div>
+                        <div class="alert alert-danger" *ngIf="invalidInitialAmount">Initial deposit amount should be grater than {{minAmount}}.</div>    
+                        <label class="pull-left"
+                        for="initialDepositAmount">Initial Deposit Amount</label>
+                        <input type="number" class="form-control"
+                             [ngModel]="minAmount" formControlName="initialDepositAmount"
+                        id="initialDepositAmount" [min]="minAmount" (change)="CheckAmount($event.target.value)">
+                    </div>
+                    
+                </div>
+                
+                
+                <br>
+                <div>
+                        <button type="submit" *ngIf="!(registrationForm.invalid||buttonInvalid)"
+                            class="btn btn-primary btn-lg">Register</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </body>

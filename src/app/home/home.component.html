@@ -1,33 +1,45 @@
+<app-nav-bar></app-nav-bar>
 <body class="text-center">
-    <h1>Bank Management System</h1>
-    <br>
     <main class="form-signin">
-        <app-customer-login></app-customer-login>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="row">
+
+              <div class="login col-md-4 col-md-offset-4">
+                <h1 class="h3 fw-normal">Sign In</h1>
+                
+                <div class="row">
+                  <div class="col-md-8 col-md-offset-2">
+                    <div class="alert alert-danger" *ngIf="loginForm.controls.username.touched && loginForm.controls.username.invalid">Username is required.</div>
+                    <input type="text" class="form-control" id="username"  formControlName="username" placeholder="Username" >
+                  </div>
+                </div>
+                <br>
+                
+                <div class="row">
+                  <div class="col-md-8 col-md-offset-2">
+                    <div class="alert alert-danger" *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">Password is required.</div>
+                    <input type="password" class="form-control" id="password" formControlName="password"  placeholder="Password">
+                    <i class="bi bi-eye pull-right" id="toggle" (click)="showPassword()"></i>
+                  </div>
+                </div>
+                <br>
+                
+                <button class="btn btn-lg btn-success" [disabled]="loginForm.invalid" type="submit">SIGN IN</button>
+                <hr>
+
+                <h5>Forgot Password?<a routerLink="/forgot-password"> click here</a></h5>
+                <br>
+
+                 <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="alert alert-danger" *ngIf="invalidCredentials">Invalid Credentials</div>
+                    </div>
+                </div>
+              
+              </div>
+            </div>
+          </form>
         <br>
-        <app-customer-registration></app-customer-registration>
+        <h4>Don't have an account already?  <button class="btn btn-success" type="button" routerLink="/registration-page">Register now</button></h4> 
     </main>
-    <!-- <table>
-            <th>customerId</th>
-            <th>accountNumber</th>
-            <th>username</th>
-            <th>password</th>
-            <th>dateOfBirth</th>
-            <th>accountType</th>
-            <th>citizenStatus</th>
-            <th>initialDepositAmount</th>
-            <th>identificationDocumentNumber</th>
-            <th>identificationType</th>
-        <tr *ngFor="let acc of accounts">
-            <td>{{acc.customerId}}</td>
-            <td>{{acc.accountNumber}}</td>
-            <td>{{acc.username}}</td>
-            <td>{{acc.password}}</td>
-            <td>{{acc.dateOfBirth}}</td>
-            <td>{{acc.accountType}}</td>
-            <td>{{acc.citizenStatus}}</td>
-            <td>{{acc.initialDepositAmount}}</td>
-            <td>{{acc.identificationDocumentNumber}}</td>
-            <td>{{acc.identificationType}}</td>
-        </tr>
-    </table> -->
 </body>
